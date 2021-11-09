@@ -1,0 +1,72 @@
+@use "../base/color";
+@use "../base/typography";
+@use "../base/shadow";
+
+.result_card {
+  width: 343px;
+  background-color: color.$white;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  @extend %box-shadow;
+
+  .card_img {
+    width: 100%;
+    height: 180px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .card_info {
+    padding: 12px;
+  }
+
+  .card_title {
+    @extend %typography-title;
+  }
+
+  .card_detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    margin-top: 8px;
+  }
+
+  .location,
+  .time {
+    display: flex;
+    align-items: center;
+    span {
+      @extend %typography-remark;
+      color: color.$black-text-two;
+    }
+  }
+
+  .location_green,
+  .time_green {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .share {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: url("./img/share-gray.svg") no-repeat center center;
+    background-color: color.$green-two;
+  }
+}

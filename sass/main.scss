@@ -1,0 +1,39 @@
+@use "./base/reset";
+
+@use "./components/top-nav";
+@use "./components/filter-dropdown";
+@use "./components/banner";
+@use "./components/category";
+@use "./components/result-card";
+@use "./components/filter-results";
+@use "./components/pagination";
+@use "./components/result-page";
+
+@use "./layout/header";
+@use "./layout/main";
+@use "./layout/footer";
+@use "./layout/body";
+
+// .city_list {
+//   display: none !important;
+// }
+
+// .filter_dropdown {
+//   display: none !important;
+// }
+
+.banner {
+  display: none !important;
+}
+
+.categories {
+  display: none !important;
+}
+
+.filter_results {
+  display: none !important;
+}
+
+// .result_page {
+//   display: none !important;
+// }

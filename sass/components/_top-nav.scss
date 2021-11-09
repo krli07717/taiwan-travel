@@ -1,0 +1,47 @@
+@use "../base/color";
+@use "../base/shadow";
+@use "../base/breakpoint";
+
+.top_nav {
+  padding: 8px 16px;
+  display: flex;
+  align-items: baseline;
+  //   border-bottom: 1px solid color.$gray-one;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: color.$white;
+  @extend %box-shadow;
+  .filter {
+    display: inline-block;
+    height: 32px;
+    cursor: pointer;
+  }
+  @include breakpoint.lg {
+    display: block;
+    padding: 0;
+    box-shadow: none;
+    position: static;
+    .filter {
+      display: none;
+    }
+  }
+}
+
+.logo {
+  display: inline-block;
+  margin: 0 auto;
+  height: 40px;
+  a {
+    display: inline-block;
+    height: 100%;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  @include breakpoint.lg {
+    width: 116px;
+    height: 47px;
+  }
+}

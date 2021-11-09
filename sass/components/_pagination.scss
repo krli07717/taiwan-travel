@@ -1,0 +1,27 @@
+@use "../base/color";
+@use "../base/typography";
+@use "../base/shadow";
+
+.pagination {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid color.$green-one;
+    border-radius: 8px;
+    color: color.$green-one;
+    background-color: color.$white;
+    @extend %typography-mobile-body-sm;
+    @extend %box-shadow;
+    &.current_page {
+      color: color.$white;
+      background-color: color.$green-one;
+    }
+  }
+}

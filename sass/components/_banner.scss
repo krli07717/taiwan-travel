@@ -1,0 +1,32 @@
+@use "../base/color";
+@use "../base/typography";
+@use "../base/shadow";
+@use "../base/breakpoint";
+
+.banner {
+  padding: 40px 24px;
+  margin: 20px 16px;
+  background-color: color.$white;
+  border-radius: 16px;
+  @extend %box-shadow;
+  background: url("./img/banner.png") no-repeat right bottom;
+  background-size: 50% auto;
+  @include breakpoint.md {
+    background: url("./img/banner-md.png") no-repeat right bottom;
+    background-size: 380px auto;
+    padding: 45px 28px;
+  }
+  @include breakpoint.lg {
+    margin: 24px;
+    padding: 95px 40px;
+    background-size: 500px auto;
+  }
+}
+
+.banner_text {
+  display: inline-block;
+  @extend %typography-h2;
+  @include breakpoint.md {
+    @include typography.h1;
+  }
+}

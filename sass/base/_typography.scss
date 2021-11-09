@@ -1,0 +1,71 @@
+%typography-h1 {
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 72px;
+  letter-spacing: -0.05px;
+}
+
+%typography-h2 {
+  font-size: 33px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: 0.25px;
+}
+
+%typography-h3 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: 0.25px;
+}
+
+%typography-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+
+%typography-desktop-body-lg-md {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.15px;
+}
+
+%typography-mobile-body-sm {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+%typography-remark {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+//for media queries
+
+@mixin h1 {
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 72px;
+  letter-spacing: -0.05px;
+}
+
+@mixin h2 {
+  font-size: 33px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: 0.25px;
+}
+
+@mixin desktop-body-lg-md {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.15px;
+}

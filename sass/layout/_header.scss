@@ -1,0 +1,17 @@
+@use "../base/color";
+@use "../base/breakpoint";
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  @include breakpoint.lg {
+    width: 354px;
+    height: 100vh;
+    overflow: scroll;
+    background-color: color.$white;
+    padding: 40px 24px;
+    flex-shrink: 0;
+  }
+}

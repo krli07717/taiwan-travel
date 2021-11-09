@@ -1,0 +1,46 @@
+@use "../base/color";
+@use "../base/typography";
+@use "../base/breakpoint";
+
+.categories {
+  margin: 40px 16px;
+  @include breakpoint.lg {
+    margin: 40px 24px;
+  }
+}
+
+.category {
+  margin-top: 40px;
+}
+
+.category_text {
+  display: flex;
+  align-items: center;
+  .location_purple {
+    height: 24px;
+    width: 24px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 14px;
+      height: 17px;
+    }
+  }
+  .theme {
+    display: inline-block;
+    @extend %typography-h3;
+    @include breakpoint.md {
+      margin-left: 8px;
+    }
+  }
+  .more {
+    @extend %typography-mobile-body-sm;
+    color: color.$green-one;
+    margin-left: auto;
+  }
+}
+
+.category_list {
+  margin-top: 16px;
+}

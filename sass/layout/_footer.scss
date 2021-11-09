@@ -1,0 +1,13 @@
+@use "../base/color";
+@use "../base/typography";
+
+footer {
+  background-color: color.$green-one;
+  padding: 8px;
+  text-align: center;
+}
+
+.footer {
+  color: color.$white;
+  @extend %typography-remark;
+}

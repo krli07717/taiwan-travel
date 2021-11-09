@@ -1,0 +1,13 @@
+// iPad mini
+@mixin md {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+// MacBook Pro
+@mixin lg {
+  @media (min-width: 1440px) {
+    @content;
+  }
+}

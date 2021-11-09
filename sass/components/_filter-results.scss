@@ -1,0 +1,32 @@
+@use "../base/breakpoint";
+
+.filter_results {
+  margin: 40px 16px;
+
+  .result_card {
+    margin: 24px auto 0 auto;
+  }
+
+  @include breakpoint.md {
+    margin: 83px 24px;
+    .result_card {
+      margin: 0;
+      width: 229px;
+    }
+    .result_list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 17px;
+      justify-items: center;
+    }
+  }
+
+  @include breakpoint.lg {
+    .result_card {
+      width: 330px;
+    }
+    .result_list {
+      gap: 24px;
+    }
+  }
+}
