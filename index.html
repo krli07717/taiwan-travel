@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TAIWAN TRAVEL</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./img/favicon.jpg" type="image/x-icon" />
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- swiper.js -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./src/script.js" type="module"></script>
+  </head>
+  <body>
+    <header>
+      <!-- Top Nav With Logo -->
+      <nav class="top_nav">
+        <a class="filter">
+          <img src="./img/filter.png" alt="filter" />
+        </a>
+        <h1 class="logo">
+          <a href="/">
+            <img src="./img/logo.svg" alt="TAIWAN TRAVEL logo" />
+          </a>
+        </h1>
+      </nav>
+      <!-- Filter Dropdown Section -->
+      <form class="filter_dropdown">
+        <div class="choose_city">
+          <span>選擇目的地</span>
+          <img src="./img/arrow-down.svg" alt="展開選單" />
+          <div class="city_list">
+            <input hidden type="checkbox" class="city" id="基隆" /><label
+              for="基隆"
+              ><span>基隆</span></label
+            >
+            <input hidden type="checkbox" class="city" id="台北" /><label
+              for="台北"
+              ><span>台北</span></label
+            >
+            <input hidden type="checkbox" class="city" id="新北" /><label
+              for="新北"
+              ><span>新北</span></label
+            >
+            <input hidden type="checkbox" class="city" id="桃園" /><label
+              for="桃園"
+              ><span>桃園</span></label
+            >
+            <input hidden type="checkbox" class="city" id="新竹" /><label
+              for="新竹"
+              ><span>新竹</span></label
+            >
+            <input hidden type="checkbox" class="city" id="苗栗" /><label
+              for="苗栗"
+              ><span>苗栗</span></label
+            >
+            <input hidden type="checkbox" class="city" id="台中" /><label
+              for="台中"
+              ><span>台中</span></label
+            >
+            <input hidden type="checkbox" class="city" id="彰化" /><label
+              for="彰化"
+              ><span>彰化</span></label
+            >
+            <input hidden type="checkbox" class="city" id="雲林" /><label
+              for="雲林"
+              ><span>雲林</span></label
+            >
+            <input hidden type="checkbox" class="city" id="南投" /><label
+              for="南投"
+              ><span>南投</span></label
+            >
+            <input hidden type="checkbox" class="city" id="嘉義" />
+            <label for="嘉義"><span>嘉義</span></label>
+            <!-- ...should be rendered by javascript -->
+          </div>
+        </div>
+        <input type="text" placeholder="搜尋關鍵字" id="filter_keyword" />
+        <span class="our_theme">精選主題</span>
+        <div class="theme_list">
+          <input hidden type="checkbox" class="theme" id="歷史文化" /><label
+            for="歷史文化"
+            ><img src="./img/history.svg" alt="歷史文化" /><span
+              >歷史文化</span
+            ></label
+          >
+          <input hidden type="checkbox" class="theme" id="戶外踏青" /><label
+            for="戶外踏青"
+            ><img src="./img/outdoors.svg" alt="戶外踏青" /><span
+              >戶外踏青</span
+            ></label
+          >
+          <input hidden type="checkbox" class="theme" id="宗教巡禮" /><label
+            for="宗教巡禮"
+            ><img src="./img/religion.svg" alt="宗教巡禮" /><span
+              >宗教巡禮</span
+            ></label
+          >
+          <input hidden type="checkbox" class="theme" id="親子活動" /><label
+            for="親子活動"
+            ><img src="./img/parenting.svg" alt="親子活動" /><span
+              >親子活動</span
+            ></label
+          >
+          <input hidden type="checkbox" class="theme" id="風景區" /><label
+            for="風景區"
+            ><img src="/img/scene.svg" alt="風景區" /><span>風景區</span></label
+          >
+          <input hidden type="checkbox" class="theme" id="美食品嘗" /><label
+            for="美食品嘗"
+            ><img src="./img/food.svg" alt="美食品嘗" /><span
+              >美食品嘗</span
+            ></label
+          >
+          <input hidden type="checkbox" class="theme" id="住宿推薦" /><label
+            for="住宿推薦"
+            ><img src="./img/hotel.svg" alt="住宿推薦" /><span
+              >住宿推薦</span
+            ></label
+          >
+          <input hidden type="checkbox" class="theme" id="觀光活動" /><label
+            for="觀光活動"
+            ><img src="./img/tourism.svg" alt="觀光活動" /><span
+              >觀光活動</span
+            ></label
+          >
+        </div>
+        <div class="filter_submit">開始搜尋</div>
+      </form>
+    </header>
+    <div class="lg-flex-wrapper">
+      <main>
+        <!-- 首頁 -->
+        <section class="banner">
+          <h2 class="banner_text">探索。<br />福爾摩沙</h2>
+          <!-- <div class="banner_wrapper">
+              <img src="./img/banner.png" alt="banner" />
+            </div> -->
+        </section>
+        <section class="categories">
+          <section class="category">
+            <div class="category_text">
+              <div class="location_purple">
+                <img
+                  src="./img/location-purple.svg"
+                  alt="location icon - purple"
+                />
+              </div>
+              <h3 class="theme">熱門景點</h3>
+              <a href="#" class="more">更多熱門景點</a>
+            </div>
+            <div class="category_list swiper">
+              <div class="swiper-wrapper">
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-1.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">天長地久橋</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span>嘉義縣</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span>每日開放</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-2.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">2021臺北燈節</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span class="location">臺北市 萬華區</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span class="time">2021-12-17 ~ 2021-12-26</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-1.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">天長地久橋</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span>嘉義縣</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span>每日開放</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-2.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">2021臺北燈節</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span class="location">臺北市 萬華區</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span class="time">2021-12-17 ~ 2021-12-26</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="category">
+            <div class="category_text">
+              <div class="location_purple">
+                <img
+                  src="./img/location-purple.svg"
+                  alt="location icon - purple"
+                />
+              </div>
+              <h3 class="theme">熱門景點</h3>
+              <a href="#" class="more">更多熱門景點</a>
+            </div>
+            <div class="category_list swiper">
+              <div class="swiper-wrapper">
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-1.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">天長地久橋</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span>嘉義縣</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span>每日開放</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-2.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">2021臺北燈節</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span class="location">臺北市 萬華區</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span class="time">2021-12-17 ~ 2021-12-26</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-1.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">天長地久橋</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span>嘉義縣</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span>每日開放</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-2.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">2021臺北燈節</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span class="location">臺北市 萬華區</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span class="time">2021-12-17 ~ 2021-12-26</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="category">
+            <div class="category_text">
+              <div class="location_purple">
+                <img
+                  src="./img/location-purple.svg"
+                  alt="location icon - purple"
+                />
+              </div>
+              <h3 class="theme">熱門景點</h3>
+              <a href="#" class="more">更多熱門景點</a>
+            </div>
+            <div class="category_list swiper">
+              <div class="swiper-wrapper">
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-1.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">天長地久橋</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span>嘉義縣</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span>每日開放</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-2.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">2021臺北燈節</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span class="location">臺北市 萬華區</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span class="time">2021-12-17 ~ 2021-12-26</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-1.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">天長地久橋</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span>嘉義縣</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span>每日開放</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-2.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">2021臺北燈節</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span class="location">臺北市 萬華區</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span class="time">2021-12-17 ~ 2021-12-26</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <!-- 搜尋結果 -->
+        <section class="filter_results">
+          <!-- 結果列 (9項) -->
+          <div class="result_list">
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-1.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">天長地久橋</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span>嘉義縣</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span>每日開放</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-2.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">2021臺北燈節</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span class="location">臺北市 萬華區</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span class="time">2021-12-17 ~ 2021-12-26</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-1.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">天長地久橋</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span>嘉義縣</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span>每日開放</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-2.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">2021臺北燈節</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span class="location">臺北市 萬華區</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span class="time">2021-12-17 ~ 2021-12-26</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-1.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">天長地久橋</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span>嘉義縣</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span>每日開放</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-2.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">2021臺北燈節</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span class="location">臺北市 萬華區</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span class="time">2021-12-17 ~ 2021-12-26</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-1.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">天長地久橋</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span>嘉義縣</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span>每日開放</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-2.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">2021臺北燈節</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span class="location">臺北市 萬華區</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span class="time">2021-12-17 ~ 2021-12-26</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+            <div class="result_card">
+              <div class="card_img">
+                <img src="./f2e-test-2.png" alt="" />
+              </div>
+              <div class="card_info">
+                <h4 class="card_title">2021臺北燈節</h4>
+                <div class="card_detail">
+                  <div class="location">
+                    <div class="location_green">
+                      <img
+                        src="./img/location-green.svg"
+                        alt="location icon - green"
+                      />
+                    </div>
+                    <span class="location">臺北市 萬華區</span>
+                  </div>
+                  <div class="time">
+                    <div class="time_green">
+                      <img src="./img/time-green.svg" alt="time icon - green" />
+                    </div>
+                    <span class="time">2021-12-17 ~ 2021-12-26</span>
+                  </div>
+                </div>
+              </div>
+              <div class="share">
+                <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+              </div>
+            </div>
+          </div>
+          <!-- Page -->
+          <div class="pagination">
+            <a href="#"><<</a>
+            <a href="#"><</a>
+            <a class="current_page" href="#">17</a>
+            <a href="#">></a>
+            <a href="#">>></a>
+          </div>
+        </section>
+        <!-- 詳情獨立頁面 -->
+        <section class="result_page">
+          <section class="page_headline">
+            <div class="last_page">
+              <img src="./img/arrow-left.svg" alt="last page icon" />
+            </div>
+            <h4 class="page_title">奮起湖步道</h4>
+            <div class="print">
+              <img src="./img/print.svg" alt="print icon" />
+            </div>
+            <div class="share">
+              <img src="./img/share-green.svg" alt="share icon green" />
+            </div>
+          </section>
+          <section class="page_picture">
+            <div class="page_picture_wrapper">
+              <img src="./page_picture.jpg" alt="" />
+            </div>
+          </section>
+          <section class="page_info">
+            <div class="address">
+              <div class="location_green">
+                <img
+                  src="./img/location-green.svg"
+                  alt="location icon - green"
+                />
+              </div>
+              <span>嘉義縣604竹崎鄉</span>
+            </div>
+            <div class="open_time">
+              <div class="time_green">
+                <img src="./img/time-green.svg" alt="time icon - green" />
+              </div>
+              <span>每日開放</span>
+            </div>
+            <div class="phone">
+              <div class="phone_green">
+                <img src="./img/phone.svg" alt="phone icon - green" />
+              </div>
+              <span>886-5-2593900</span>
+            </div>
+          </section>
+          <section class="page_intro">
+            <h5>景點介紹</h5>
+            <article>
+              北側步道週邊景點有奮起湖步道、日本神社、悶柴窯、楓林峽...等景點。奮起湖步道：沿著奮起湖農特產品展售中心旁之步道行走登高，除了至觀景台欣賞奮起湖聚落外，並可接上糕仔崁古道，伴隨著暖帶林相，可享竹林聽濤樂，也可看看早年的日本神社一座3公尺見方的基座平台和石階、石牆等遺跡、或全以石塊堆疊而成的悶柴燒遺跡，該步道全長約2000公尺，春夏走來涼爽怡人。日本神社：位於奮起湖北方森林裡，主奉天照大神。如今只剩下一座3公尺見方的基座平台和石階、石牆等遺跡。悶柴窯：在日據時代，奮起湖附近的悶柴窯大約有10幾處。當地居民將雜木放入窯中悶燒20天左右，就成了早期家庭用的木炭。目前保存的這一處主要以石塊堆砌而成，約5坪大的圓形窯。圍牆平均高約1公尺，留有一處約半公尺寬的出口。楓林峽
+              ：奮起湖有一處賞楓的據點─楓林峽，除了可以欣賞台灣青楓、台灣紅榨槭外，更可以眺望奮起湖全景，透過光崙山、霹靂山的雙峰，遙望大凍山，天氣晴朗時，還可望見玉山群峰。
+            </article>
+          </section>
+          <section class="page_traffic">
+            <h5>交通方式</h5>
+            <iframe
+              src="https://maps.google.com/maps?q=23.50609016418457, 120.69587707519531&z=15&output=embed"
+              width="100%"
+              frameborder="0"
+              style="border: 0; border-radius: 8px"
+            ></iframe>
+            <article>
+              【奮起湖步道入口】國光客運：台北西站B棟、嘉義站均可上車。嘉義縣公車7322、7302：台鐵嘉義站、高鐵嘉義站上車台灣好行阿里山A、B線：A線高鐵嘉義站，B線台鐵嘉義站上車阿里山小火車：嘉義站搭乘。於奮起湖站下車，奮起湖步道入口由火車站對面，奮起湖農特產品展售中心旁進入。
+            </article>
+          </section>
+          <section class="page_recommend">
+            <h5>查看更多</h5>
+            <div class="recommend_list swiper">
+              <div class="swiper-wrapper">
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-1.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">天長地久橋</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span>嘉義縣</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span>每日開放</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+                <div class="result_card swiper-slide">
+                  <div class="card_img">
+                    <img src="./f2e-test-2.png" alt="" />
+                  </div>
+                  <div class="card_info">
+                    <h4 class="card_title">2021臺北燈節</h4>
+                    <div class="card_detail">
+                      <div class="location">
+                        <div class="location_green">
+                          <img
+                            src="./img/location-green.svg"
+                            alt="location icon - green"
+                          />
+                        </div>
+                        <span class="location">臺北市 萬華區</span>
+                      </div>
+                      <div class="time">
+                        <div class="time_green">
+                          <img
+                            src="./img/time-green.svg"
+                            alt="time icon - green"
+                          />
+                        </div>
+                        <span class="time">2021-12-17 ~ 2021-12-26</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="share">
+                    <!-- <img src="./img/share-gray.svg" alt="share icon" /> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+      <footer>
+        <span class="footer">TAIWAN TRAVEL</span>
+      </footer>
+    </div>
+  </body>
+</html>
