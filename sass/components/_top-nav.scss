@@ -9,7 +9,7 @@
   //   border-bottom: 1px solid color.$gray-one;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 9;
   background-color: color.$white;
   @extend %box-shadow;
   .filter {
