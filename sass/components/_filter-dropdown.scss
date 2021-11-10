@@ -169,7 +169,7 @@ input#filter_keyword {
   bottom: 8px;
   cursor: pointer;
   box-shadow: 0 0 0 8px color.$white;
-  @include breakpoint.lg {
-    display: none;
-  }
+  //   @include breakpoint.lg {
+  //     display: none;
+  //   }
 }
