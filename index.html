@@ -41,47 +41,77 @@
           <span>選擇目的地</span>
           <img src="./img/arrow-down.svg" alt="展開選單" />
           <div class="city_list">
-            <input hidden type="checkbox" class="city" id="基隆" /><label
-              for="基隆"
-              ><span>基隆</span></label
-            >
-            <input hidden type="checkbox" class="city" id="台北" /><label
-              for="台北"
-              ><span>台北</span></label
-            >
-            <input hidden type="checkbox" class="city" id="新北" /><label
-              for="新北"
-              ><span>新北</span></label
-            >
-            <input hidden type="checkbox" class="city" id="桃園" /><label
-              for="桃園"
-              ><span>桃園</span></label
-            >
-            <input hidden type="checkbox" class="city" id="新竹" /><label
-              for="新竹"
-              ><span>新竹</span></label
-            >
-            <input hidden type="checkbox" class="city" id="苗栗" /><label
-              for="苗栗"
-              ><span>苗栗</span></label
-            >
-            <input hidden type="checkbox" class="city" id="台中" /><label
-              for="台中"
-              ><span>台中</span></label
-            >
-            <input hidden type="checkbox" class="city" id="彰化" /><label
-              for="彰化"
-              ><span>彰化</span></label
-            >
-            <input hidden type="checkbox" class="city" id="雲林" /><label
-              for="雲林"
-              ><span>雲林</span></label
-            >
-            <input hidden type="checkbox" class="city" id="南投" /><label
-              for="南投"
-              ><span>南投</span></label
-            >
-            <input hidden type="checkbox" class="city" id="嘉義" />
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="基隆"
+            /><label for="基隆"><span>基隆</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="台北"
+            /><label for="台北"><span>台北</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="新北"
+            /><label for="新北"><span>新北</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="桃園"
+            /><label for="桃園"><span>桃園</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="新竹"
+            /><label for="新竹"><span>新竹</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="苗栗"
+            /><label for="苗栗"><span>苗栗</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="台中"
+            /><label for="台中"><span>台中</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="彰化"
+            /><label for="彰化"><span>彰化</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="雲林"
+            /><label for="雲林"><span>雲林</span></label>
+            <input
+              hidden
+              type="radio"
+              name="city"
+              class="city"
+              id="南投"
+            /><label for="南投"><span>南投</span></label>
+            <input hidden type="radio" name="city" class="city" id="嘉義" />
             <label for="嘉義"><span>嘉義</span></label>
             <!-- ...should be rendered by javascript -->
           </div>
@@ -113,9 +143,11 @@
               >親子活動</span
             ></label
           >
-          <input hidden type="checkbox" class="theme" id="風景區" /><label
-            for="風景區"
-            ><img src="/img/scene.svg" alt="風景區" /><span>風景區</span></label
+          <input hidden type="checkbox" class="theme" id="熱門景點" /><label
+            for="熱門景點"
+            ><img src="/img/scene.svg" alt="熱門景點" /><span
+              >熱門景點</span
+            ></label
           >
           <input hidden type="checkbox" class="theme" id="美食品嘗" /><label
             for="美食品嘗"
@@ -572,6 +604,7 @@
         </section>
         <!-- 搜尋結果 -->
         <section class="filter_results">
+          <h3 class="filtered_title">嘉義</h3>
           <!-- 結果列 (9項) -->
           <div class="result_list">
             <div class="result_card">
