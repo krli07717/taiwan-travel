@@ -5,9 +5,14 @@
 .filter_dropdown {
   padding: 8px 16px;
   background-color: color.$gray-two;
-  // onclick
-  // display: none;
+  display: none;
+
+  &.hide {
+    display: block;
+  }
+
   @include breakpoint.lg {
+    display: block;
     padding: 0;
     background-color: color.$white;
     margin-top: 24px;
@@ -27,9 +32,17 @@
 .choose_city {
   @extend %filter-input;
   position: relative;
+  cursor: pointer;
   span {
     flex: 1;
     @extend %typography-desktop-body-lg-md;
+  }
+
+  .selected_city {
+    color: color.$black-text-one;
+    &.placeholder {
+      color: color.$black-text-three;
+    }
   }
 
   @include breakpoint.lg {
@@ -37,9 +50,7 @@
   }
 
   .city_list {
-    display: grid;
-    // onclick
-    // display: none;
+    display: none;
     grid-template-columns: 1fr 1fr 1fr;
     width: 100%;
     position: absolute;
@@ -52,8 +63,10 @@
     gap: 10px 25px;
     box-shadow: -1px 0 0 0 color.$white, 1px 0 0 0 color.$white,
       0px 14px 24px rgba(0, 0, 0, 0.04);
-    @include breakpoint.md {
-      justify-items: center;
+    justify-items: center;
+    &.hide {
+      display: grid;
+      animation: slide-in 0.3s ease-out;
     }
     label {
       width: 90px;
@@ -69,13 +82,8 @@
         @extend %typography-desktop-body-lg-md;
       }
       @include breakpoint.lg {
-        width: 78px;
+        width: 100%;
       }
-      //   電腦版處理hover
-      //   &:hover {
-      //     background-color: color.$green-one;
-      //     color: color.$white;
-      //   }
     }
 
     input.city:checked + label {
@@ -85,13 +93,27 @@
   }
 }
 
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-45px);
+  }
+  20% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 input#filter_keyword {
   @extend %filter-input;
   width: 100%;
   height: 45px;
   margin-top: 12px;
   @extend %typography-desktop-body-lg-md;
-
+  color: color.$black-text-one;
   &::placeholder {
     line-height: 27px;
     color: color.$black-text-three;
@@ -135,9 +157,11 @@ input#filter_keyword {
     justify-content: center;
     flex-direction: column;
     border-radius: 8px;
-    height: 110px;
-
-    //hover要處理
+    height: 96px;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid color.$green-one;
+    }
   }
   img {
     width: 70px;
@@ -156,8 +180,6 @@ input#filter_keyword {
   }
 }
 
-//開始搜尋
-
 .filter_submit {
   @extend %typography-mobile-body-sm;
   color: color.$white;
@@ -169,7 +191,7 @@ input#filter_keyword {
   bottom: 8px;
   cursor: pointer;
   box-shadow: 0 0 0 8px color.$white;
-  //   @include breakpoint.lg {
-  //     display: none;
-  //   }
+  @include breakpoint.lg {
+    position: static;
+  }
 }

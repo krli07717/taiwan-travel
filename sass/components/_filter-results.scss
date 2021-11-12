@@ -3,13 +3,15 @@
 
 .filter_results {
   margin: 20px 16px;
-
+  min-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
   .filtered_title {
     @extend %typography-h3;
   }
 
   .result_list {
-    margin-top: 24px;
+    flex: 1;
   }
 
   .result_card {
@@ -18,12 +20,14 @@
 
   @include breakpoint.md {
     margin: 53px 24px;
+
     .filtered_title {
       @include typography.h2;
     }
     .result_card {
       margin: 0;
-      width: 229px;
+      min-width: 229px;
+      width: 90%;
     }
     .result_list {
       display: grid;

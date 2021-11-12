@@ -5,9 +5,23 @@ footer {
   background-color: color.$green-one;
   padding: 8px;
   text-align: center;
-}
 
-.footer {
-  color: color.$white;
-  @extend %typography-remark;
+  p {
+    color: color.$white;
+    @extend %typography-remark;
+  }
+
+  p + p {
+    margin-top: 8px;
+  }
+
+  .links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  a {
+    color: yellow;
+    text-decoration: underline;
+  }
 }

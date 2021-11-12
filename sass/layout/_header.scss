@@ -9,9 +9,9 @@ header {
   @include breakpoint.lg {
     width: 354px;
     height: 100vh;
-    overflow: scroll;
+    overflow: auto;
     background-color: color.$white;
-    padding: 40px 24px;
+    padding: 20px 24px;
     flex-shrink: 0;
   }
 }

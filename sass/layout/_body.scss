@@ -1,12 +1,13 @@
 @use "../base/breakpoint";
 
 body {
+  overflow-x: hidden;
   @include breakpoint.lg {
     display: flex;
-
     .lg-flex-wrapper {
-      //   flex-grow: 1;
-      width: 1086px;
+      display: flex;
+      flex-direction: column;
+      width: calc(100vw - 354px);
     }
   }
 }

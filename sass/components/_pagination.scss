@@ -17,11 +17,20 @@
     border-radius: 8px;
     color: color.$green-one;
     background-color: color.$white;
+    cursor: pointer;
     @extend %typography-mobile-body-sm;
     @extend %box-shadow;
     &.current_page {
       color: color.$white;
       background-color: color.$green-one;
     }
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: color.$gray-three;
+    background-color: color.$gray-one;
+    border: none;
   }
 }

@@ -14,26 +14,7 @@
 @use "./layout/footer";
 @use "./layout/body";
 
-// .city_list {
-//   display: none !important;
-// }
-
-// .filter_dropdown {
-//   display: none !important;
-// }
-
-.banner {
-  display: none !important;
+//utils
+.hide {
+  display: none;
 }
-
-.categories {
-  display: none !important;
-}
-
-.filter_results {
-  display: none !important;
-}
-
-// .result_page {
-//   display: none !important;
-// }

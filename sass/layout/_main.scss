@@ -1,4 +1,14 @@
 @use "../base/color";
+@use "../base/breakpoint";
 
-// main {
-// }
+main {
+  .loading {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @include breakpoint.lg {
+    flex: 1;
+  }
+}
