@@ -1,49 +1,42 @@
 import { MODES, STATES } from "./constants.js";
+import { isInvalidQuery } from "./utils.js";
 export default function bindListeners(state) {
   const { HOME_PAGE, FILTERED_PAGE, ITEM_PAGE } = MODES;
-  const { MODE, QUERY_STRING, FILTERED_DATA, CURRENT_PAGE } = STATES;
+  const { MODE, QUERY_STRING, CURRENT_PAGE } = STATES;
   // window
-  function isInvalidQuery() {
-    const onloadSearchParams = new URLSearchParams(location.search);
-    return (
-      !onloadSearchParams.has("city") &&
-      !onloadSearchParams.has("categories") &&
-      !onloadSearchParams.has("keyword")
-    );
-  }
-
   window.addEventListener("load", () => {
-    if (isInvalidQuery()) {
-      state.setState({ [MODE]: HOME_PAGE, [QUERY_STRING]: location.search });
-      return;
-    }
-    state.setState({ [MODE]: FILTERED_PAGE, [QUERY_STRING]: location.search });
+    isInvalidQuery()
+      ? state.setState({ [MODE]: HOME_PAGE, [QUERY_STRING]: "" })
+      : state.setState({
+          [MODE]: FILTERED_PAGE,
+          [QUERY_STRING]: location.search,
+        });
   });
 
   window.addEventListener("popstate", () => {
     console.log("history");
-    // going from itempage to homepage/filtered
-    if (state.getState(MODE) === ITEM_PAGE) {
-      if (location.search === "" || isInvalidQuery()) {
-        history.pushState({}, "", "/");
-        state.setState({ [MODE]: HOME_PAGE, [QUERY_STRING]: "" });
-        // location = "/";
-        return;
-      }
-      state.setState({ [MODE]: FILTERED_PAGE });
-    }
 
-    // is going through pagination
-    const lastPage = /.*&page=(\d*).*/g.exec(location.search);
-    if (lastPage) {
-      console.log(`back to page: `, +lastPage[1]);
-      state.setState({ [CURRENT_PAGE]: lastPage[1] });
-    }
-
-    //is going from filtered to item
     const lastId = /.*id=(.*)$/g.exec(location.search);
+
+    if (isInvalidQuery() && !lastId) {
+      //回首頁
+      state.setState({ [MODE]: HOME_PAGE, [QUERY_STRING]: "" });
+      return;
+    }
+
+    console.log(`last id `, lastId);
     if (lastId) {
+      //ITEM_PAGE
       state.setState({ [MODE]: ITEM_PAGE, [QUERY_STRING]: location.search });
+      return;
+    }
+
+    const lastPage = /.*&page=(\d*).*/g.exec(location.search);
+    if (+lastPage?.[1]) {
+      // going through pagination
+      console.log(`back to page: `, +lastPage[1]);
+      state.setState({ [CURRENT_PAGE]: +lastPage[1] });
+      return;
     }
   });
 
@@ -54,35 +47,30 @@ export default function bindListeners(state) {
     // card to item page
     const resultCard = e.target.closest(".result_card");
     if (resultCard) {
-      history.pushState(
-        { fromItemPage: true },
-        "",
-        `?id=${resultCard.dataset.id}`
-      );
+      history.pushState({}, "", `?id=${resultCard.dataset.id}`);
       state.setState({ [MODE]: ITEM_PAGE, [QUERY_STRING]: location.search });
       return;
     }
-    // homepage more a
-    if (e.target.closest(".category a.more")) {
-      const categoryMatch = /^更多(.*)$/g.exec(
-        e.target.closest(".category a.more").textContent
-      );
+    // homepage more (更多熱門景點,更多美食品嘗...)
+    const categoryMore = e.target.closest(".category a.more");
+    if (categoryMore) {
+      const categoryMatch = /^更多(.*)$/g.exec(categoryMore.textContent);
       let categoryQuery = `?categories=${categoryMatch[1]}&page=1`;
       history.pushState({}, "", categoryQuery);
       state.setState({ [MODE]: FILTERED_PAGE, [QUERY_STRING]: categoryQuery });
       return;
     }
     // pagination
-    if (e.target.closest(".pagination a:not(.disabled)")) {
+    const pageLink = e.target.closest(".pagination a:not(.disabled)");
+    if (pageLink) {
       const currentPagePattern = /&page=\d*/g;
+      const toPage = pageLink.dataset.page;
       history.pushState(
         {},
         "",
-        `${location.search.replace(currentPagePattern, "")}&page=${
-          e.target.dataset.page
-        }`
+        `${location.search.replace(currentPagePattern, "")}&page=${toPage}`
       );
-      state.setState({ [CURRENT_PAGE]: +e.target.dataset.page });
+      state.setState({ [CURRENT_PAGE]: +toPage });
       return;
     }
     // item last page icon
@@ -108,23 +96,30 @@ export default function bindListeners(state) {
   });
 
   // nav
+  // NOTE: 原先css沒有抓好，目前加回class="hide"的話都是讓它出現..XD
   const filterForm = document.querySelector(".filter_dropdown");
   const cityList = filterForm.querySelector(".city_list");
   const selectedCity = filterForm.querySelector(".selected_city");
 
   filterForm.addEventListener("click", (e) => {
-    if (e.target.closest(".choose_city") && !e.target.closest(".city_list")) {
+    // toggle縣市清單
+    const isClickingToggleCities =
+      e.target.closest(".choose_city") && !e.target.closest(".city_list");
+    if (isClickingToggleCities) {
       cityList.classList.toggle("hide");
       return;
     }
 
-    if (e.target.closest(".city_list label")) {
+    // 選擇篩選縣市
+    const cityLabel = e.target.closest(".city_list label");
+    if (cityLabel) {
       selectedCity.classList.remove("placeholder");
-      selectedCity.textContent = e.target.textContent;
+      selectedCity.textContent = cityLabel.textContent;
       cityList.classList.remove("hide");
       return;
     }
 
+    // submit篩選
     if (e.target.closest(".filter_submit")) {
       const filterCity = filterForm.querySelector(
         "input[name='city']:checked"
@@ -137,11 +132,16 @@ export default function bindListeners(state) {
       ]
         .map((input) => input.id)
         .join(",");
+
+      // 決定query string
       let query = "?";
       if (filterCity) query += `&city=${filterCity}`;
       if (filterKeyword) query += `&keyword=${filterKeyword}`;
       if (filterCategories) query += `&categories=${filterCategories}`;
-      if (query === "?") return;
+      if (query === "?") {
+        filterForm.classList.remove("hide");
+        return;
+      }
 
       let searchQuery = query.replace("&", "");
       searchQuery += "&page=1";
@@ -152,6 +152,7 @@ export default function bindListeners(state) {
     }
   });
 
+  //   桌機以下toggle篩選清單
   const navFilter = document.querySelector(".top_nav .filter");
   navFilter.addEventListener("click", () => {
     filterForm.classList.toggle("hide");
