@@ -1,5 +1,4 @@
 export default function makeState(initState, onChange) {
-  let previousState = {};
   let state = { ...initState };
 
   function getState(key) {
@@ -9,7 +8,6 @@ export default function makeState(initState, onChange) {
   }
 
   async function setState(changeState, callback) {
-    previousState = { ...state };
     state = { ...state, ...changeState };
     try {
       if (typeof callback === "function") await callback();
