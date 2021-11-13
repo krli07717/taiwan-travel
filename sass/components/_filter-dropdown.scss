@@ -6,6 +6,7 @@
   padding: 8px 16px;
   background-color: color.$gray-two;
   display: none;
+  animation: slide-in 0.8s ease-out;
 
   &.hide {
     display: block;
