@@ -72,7 +72,4 @@ function main() {
   bindListeners(state);
 }
 
-// apikey.js
-// Footer 註github原始碼
-
 main();
