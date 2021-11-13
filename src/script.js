@@ -12,12 +12,10 @@ function main() {
 
   const initialState = {
     [MODE]: HOME_PAGE, // HOME_PAGE | FILTERED_PAGE | ITEM_PAGE
-    [QUERY_STRING]: "", // city{1} , keyword{1} , category{8} , page{1} | id{1}
+    [QUERY_STRING]: "", // city{1} , keyword{1} , categories{8} , page{1} | id{1}
     [FILTERED_DATA]: [],
     [CURRENT_PAGE]: 1,
   };
-
-  console.log(initialState);
 
   const onChange = {
     [MODE]: () => {
@@ -25,7 +23,6 @@ function main() {
       scrollTop();
     },
     [QUERY_STRING]: async () => {
-      console.log("q cb exec");
       render.updateLoading();
       console.log("queryString changed to\n", state.getState(QUERY_STRING));
       if (state.getState(MODE) === ITEM_PAGE) {
@@ -35,7 +32,7 @@ function main() {
           .map(({ data }) => data)
           .flat();
         const matchItem = allData.find((item) => item.ID === id);
-        render.updateItempage(matchItem);
+        if (matchItem) render.updateItempage(matchItem);
         return;
       }
       const searchParams = parseRouter(state.getState(QUERY_STRING));
@@ -59,11 +56,9 @@ function main() {
         const queryPageMatch = /.*&page=(\d*).*/g.exec(
           state.getState(QUERY_STRING)
         );
-        if (queryPageMatch) {
-          state.setState({ [CURRENT_PAGE]: Math.max(1, +queryPageMatch[1]) });
-          return;
-        }
-        state.setState({ [CURRENT_PAGE]: 1 });
+        +queryPageMatch?.[1] // false if NaN/undefined
+          ? state.setState({ [CURRENT_PAGE]: Math.max(1, +queryPageMatch[1]) })
+          : state.setState({ [CURRENT_PAGE]: 1 });
       }
     },
     [CURRENT_PAGE]: () => {
@@ -80,7 +75,8 @@ function main() {
   bindListeners(state);
 }
 
-// 整理程式碼
+// remove consolelogs
+// fix滑nav main也動
 // Footer 註github原始碼
 
 main();

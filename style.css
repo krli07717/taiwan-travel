@@ -123,6 +123,7 @@ footer p, .result_card .location span,
   padding: 8px 16px;
   background-color: #fafafa;
   display: none;
+  animation: slide-in 0.8s ease-out;
 }
 .filter_dropdown.hide {
   display: block;
