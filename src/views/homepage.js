@@ -40,9 +40,6 @@ export default function getHomepageTemplate(dataList) {
       return categoryListHTML;
     }, ``);
 
-    // <div class="share">
-    // </div>
-
     const categoryHTML = `
         <section class="category">
             <div class="category_text">
