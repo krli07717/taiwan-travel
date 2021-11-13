@@ -1,6 +1,7 @@
-import MODE from "./constants.js";
+import { MODES, STATES } from "./constants.js";
 export default function bindListeners(state) {
-  const { HOME_PAGE, FILTERED_PAGE, ITEM_PAGE } = MODE;
+  const { HOME_PAGE, FILTERED_PAGE, ITEM_PAGE } = MODES;
+  const { MODE, QUERY_STRING, FILTERED_DATA, CURRENT_PAGE } = STATES;
   // window
   function isInvalidQuery() {
     const onloadSearchParams = new URLSearchParams(location.search);
@@ -13,36 +14,36 @@ export default function bindListeners(state) {
 
   window.addEventListener("load", () => {
     if (isInvalidQuery()) {
-      state.setState({ mode: HOME_PAGE, queryString: location.search });
+      state.setState({ [MODE]: HOME_PAGE, [QUERY_STRING]: location.search });
       return;
     }
-    state.setState({ mode: FILTERED_PAGE, queryString: location.search });
+    state.setState({ [MODE]: FILTERED_PAGE, [QUERY_STRING]: location.search });
   });
 
   window.addEventListener("popstate", () => {
     console.log("history");
     // going from itempage to homepage/filtered
-    if (state.getState("mode") === ITEM_PAGE) {
+    if (state.getState(MODE) === ITEM_PAGE) {
       if (location.search === "" || isInvalidQuery()) {
         history.pushState({}, "", "/");
-        state.setState({ mode: HOME_PAGE, queryString: "" });
+        state.setState({ [MODE]: HOME_PAGE, [QUERY_STRING]: "" });
         // location = "/";
         return;
       }
-      state.setState({ mode: FILTERED_PAGE });
+      state.setState({ [MODE]: FILTERED_PAGE });
     }
 
     // is going through pagination
     const lastPage = /.*&page=(\d*).*/g.exec(location.search);
     if (lastPage) {
       console.log(`back to page: `, +lastPage[1]);
-      state.setState({ currentPage: lastPage[1] });
+      state.setState({ [CURRENT_PAGE]: lastPage[1] });
     }
 
     //is going from filtered to item
     const lastId = /.*id=(.*)$/g.exec(location.search);
     if (lastId) {
-      state.setState({ mode: ITEM_PAGE, queryString: location.search });
+      state.setState({ [MODE]: ITEM_PAGE, [QUERY_STRING]: location.search });
     }
   });
 
@@ -58,7 +59,7 @@ export default function bindListeners(state) {
         "",
         `?id=${resultCard.dataset.id}`
       );
-      state.setState({ mode: ITEM_PAGE, queryString: location.search });
+      state.setState({ [MODE]: ITEM_PAGE, [QUERY_STRING]: location.search });
       return;
     }
     // homepage more a
@@ -68,7 +69,7 @@ export default function bindListeners(state) {
       );
       let categoryQuery = `?categories=${categoryMatch[1]}&page=1`;
       history.pushState({}, "", categoryQuery);
-      state.setState({ mode: FILTERED_PAGE, queryString: categoryQuery });
+      state.setState({ [MODE]: FILTERED_PAGE, [QUERY_STRING]: categoryQuery });
       return;
     }
     // pagination
@@ -81,7 +82,7 @@ export default function bindListeners(state) {
           e.target.dataset.page
         }`
       );
-      state.setState({ currentPage: +e.target.dataset.page });
+      state.setState({ [CURRENT_PAGE]: +e.target.dataset.page });
       return;
     }
     // item last page icon
@@ -145,7 +146,7 @@ export default function bindListeners(state) {
       let searchQuery = query.replace("&", "");
       searchQuery += "&page=1";
       history.pushState({}, "", searchQuery);
-      state.setState({ mode: FILTERED_PAGE, queryString: searchQuery });
+      state.setState({ [MODE]: FILTERED_PAGE, [QUERY_STRING]: searchQuery });
       filterForm.classList.remove("hide");
       return;
     }

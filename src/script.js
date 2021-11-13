@@ -4,69 +4,73 @@ import makeState from "./modules/state.js";
 import render from "./views/render.js";
 import bindListeners from "./modules/listeners.js";
 import { scrollTop, parseRouter } from "./modules/utils.js";
-import MODE from "./modules/constants.js";
+import { MODES, STATES } from "./modules/constants.js";
 
 function main() {
-  const { HOME_PAGE, FILTERED_PAGE, ITEM_PAGE } = MODE;
+  const { HOME_PAGE, FILTERED_PAGE, ITEM_PAGE } = MODES;
+  const { MODE, QUERY_STRING, FILTERED_DATA, CURRENT_PAGE } = STATES;
 
   const initialState = {
-    mode: HOME_PAGE, // HOME_PAGE | FILTERED_PAGE | ITEM_PAGE
-    queryString: "", // city{1} , keyword{1} , category{8} , page{1} | id{1}
-    filteredData: [],
-    currentPage: 1,
+    [MODE]: HOME_PAGE, // HOME_PAGE | FILTERED_PAGE | ITEM_PAGE
+    [QUERY_STRING]: "", // city{1} , keyword{1} , category{8} , page{1} | id{1}
+    [FILTERED_DATA]: [],
+    [CURRENT_PAGE]: 1,
   };
 
+  console.log(initialState);
+
   const onChange = {
-    mode: () => {
-      console.log("mode changed to", state.getState("mode"));
+    [MODE]: () => {
+      console.log("mode changed to", state.getState(MODE));
       scrollTop();
     },
-    queryString: async () => {
+    [QUERY_STRING]: async () => {
+      console.log("q cb exec");
       render.updateLoading();
-      console.log("queryString changed to\n", state.getState("queryString"));
-      if (state.getState("mode") === ITEM_PAGE) {
-        const { id } = parseRouter(state.getState("queryString"));
+      console.log("queryString changed to\n", state.getState(QUERY_STRING));
+      if (state.getState(MODE) === ITEM_PAGE) {
+        const { id } = parseRouter(state.getState(QUERY_STRING));
         const allData = state
-          .getState("filteredData")
+          .getState(FILTERED_DATA)
           .map(({ data }) => data)
           .flat();
         const matchItem = allData.find((item) => item.ID === id);
         render.updateItempage(matchItem);
         return;
       }
-      const searchParams = parseRouter(state.getState("queryString"));
+      const searchParams = parseRouter(state.getState(QUERY_STRING));
       render.updateFilterDropdown(searchParams);
       const data = await fetchBy(searchParams);
       state.setState({
-        filteredData: data,
+        [FILTERED_DATA]: data,
       });
     },
-    filteredData: () => {
+    [FILTERED_DATA]: () => {
       console.log(
         "filteredData changed, rendering",
-        state.getState("filteredData")
+        state.getState(FILTERED_DATA)
       );
-      if (state.getState("mode") === HOME_PAGE) {
-        render.updateHomepage(state.getState("filteredData"));
+      if (state.getState(MODE) === HOME_PAGE) {
+        render.updateHomepage(state.getState(FILTERED_DATA));
         renewSwiper();
         return;
       }
-      if (state.getState("mode") === FILTERED_PAGE) {
+      if (state.getState(MODE) === FILTERED_PAGE) {
         const queryPageMatch = /.*&page=(\d*).*/g.exec(
-          state.getState("queryString")
+          state.getState(QUERY_STRING)
         );
         if (queryPageMatch) {
-          state.setState({ currentPage: Math.max(1, +queryPageMatch[1]) });
+          state.setState({ [CURRENT_PAGE]: Math.max(1, +queryPageMatch[1]) });
           return;
         }
-        state.setState({ currentPage: 1 });
+        state.setState({ [CURRENT_PAGE]: 1 });
       }
     },
-    currentPage: () => {
-      console.log("currentPage changed to", state.getState("currentPage"));
+    [CURRENT_PAGE]: () => {
+      console.log("currentPage changed to", state.getState(CURRENT_PAGE));
       render.updateFilteredList({
-        data: state.getState("filteredData"),
-        page: state.getState("currentPage"),
+        data: state.getState(FILTERED_DATA),
+        page: state.getState(CURRENT_PAGE),
       });
       scrollTop();
     },
