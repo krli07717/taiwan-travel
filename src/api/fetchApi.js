@@ -1,13 +1,55 @@
 import API_KEY from "./apiKey.js";
 import getRequestHeader from "./requestHeader.js";
 
-async function fetchTdxApi(urlName, url) {
+const mainCategories = ["熱門景點", "美食品嘗", "住宿推薦", "觀光活動"];
+const mainCategoryToEnglish = {
+  熱門景點: "ScenicSpot",
+  美食品嘗: "Restaurant",
+  住宿推薦: "Hotel",
+  觀光活動: "Activity",
+};
+const themeSets = ["歷史", "文化", "戶外", "踏青", "宗教", "巡禮", "親子"];
+const cityToEnglish = {
+  台北: "Taipei",
+  新北: "NewTaipei",
+  桃園: "Taoyuan",
+  台中: "Taichung",
+  台南: "Tainan",
+  高雄: "Kaohsiung",
+  基隆: "Keelung",
+  新竹: "Hsinchu",
+  苗栗: "MiaoliCounty",
+  彰化: "ChanghuaCounty",
+  南投: "NantouCounty",
+  雲林: "YunlinCounty",
+  嘉義: "Chiayi",
+  屏東: "PingtungCounty",
+  宜蘭: "YilanCounty",
+  花蓮: "HualienCounty",
+  台東: "TaitungCounty",
+  金門: "KinmenCounty",
+  澎湖: "PenghuCounty",
+  連江: "LienchiangCounty",
+};
+
+async function fetchOne(urlName, url) {
   try {
-    const response = await fetch(url, {
-      headers: getRequestHeader(API_KEY),
-    });
+    const response = await fetch(url, { headers: getRequestHeader(API_KEY) });
     const data = await response.json();
     return { urlName: urlName, data: data };
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function fetchTdxApi(urls) {
+  try {
+    const fetchAll = await Promise.allSettled(
+      Object.entries(urls).map(([urlName, url]) => {
+        return fetchOne(urlName, url);
+      })
+    );
+    return fetchAll.map((resolved) => resolved.value);
   } catch (error) {
     throw error;
   }
@@ -30,42 +72,11 @@ export default async function fetchBy(searchParamsObj) {
         住宿推薦: `https://ptx.transportdata.tw/MOTC/v2/Tourism/Hotel?$orderby=UpdateTime&$top=${previewCount}&$format=JSON`,
         觀光活動: `https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity?$orderby=UpdateTime&$top=${previewCount}&$format=JSON`,
       };
-      const fetchAll = await Promise.allSettled(
-        Object.entries(urls).map(([urlName, url]) => fetchTdxApi(urlName, url))
-      );
-      return fetchAll.map((resolved) => resolved.value);
+      const data = await fetchTdxApi(urls);
+      return data;
     }
 
-    const mainCategories = ["熱門景點", "美食品嘗", "住宿推薦", "觀光活動"];
-    const mainCategoryToEnglish = {
-      熱門景點: "ScenicSpot",
-      美食品嘗: "Restaurant",
-      住宿推薦: "Hotel",
-      觀光活動: "Activity",
-    };
-    const themeSets = ["歷史", "文化", "戶外", "踏青", "宗教", "巡禮", "親子"];
-    const cityToEnglish = {
-      台北: "Taipei",
-      新北: "NewTaipei",
-      桃園: "Taoyuan",
-      台中: "Taichung",
-      台南: "Tainan",
-      高雄: "Kaohsiung",
-      基隆: "Keelung",
-      新竹: "Hsinchu",
-      苗栗: "MiaoliCounty",
-      彰化: "ChanghuaCounty",
-      南投: "NantouCounty",
-      雲林: "YunlinCounty",
-      嘉義: "Chiayi",
-      屏東: "PingtungCounty",
-      宜蘭: "YilanCounty",
-      花蓮: "HualienCounty",
-      台東: "TaitungCounty",
-      金門: "KinmenCounty",
-      澎湖: "PenghuCounty",
-      連江: "LienchiangCounty",
-    };
+    // 判斷篩選
     const { city, keyword, categories } = searchParamsObj;
     const apiFilter = {
       keyword: keyword,
@@ -84,67 +95,61 @@ export default async function fetchBy(searchParamsObj) {
 
     console.log(`apiFilter\n`, apiFilter);
 
-    // city:must
-    // keyword:must
-    // category: must append
-    // theme(must or)
-
     let baseUrl = "https://ptx.transportdata.tw/MOTC/v2/Tourism/";
     let apis;
 
-    if (!apiFilter.mainUrls.length) {
-      apis = mainCategories.reduce((apiObj, urlName) => {
-        apiObj[urlName] = baseUrl + mainCategoryToEnglish[urlName];
-        return apiObj;
-      }, {});
-    } else {
-      apis = apiFilter.mainUrls.reduce((apiObj, urlName) => {
-        apiObj[urlName] = baseUrl + mainCategoryToEnglish[urlName];
-        return apiObj;
-      }, {});
+    // 決定請求幾筆url
+    function apiReducer(apiObj, urlName) {
+      apiObj[urlName] = baseUrl + mainCategoryToEnglish[urlName];
+      return apiObj;
     }
+    apiFilter.mainUrls.length
+      ? (apis = apiFilter.mainUrls.reduce(apiReducer, {}))
+      : (apis = mainCategories.reduce(apiReducer, {}));
 
+    // 增加篩選城市
     if (apiFilter.city) {
       for (const [key, value] of Object.entries(apis)) {
         apis[key] = value + `/${apiFilter.city}`;
       }
     }
 
+    // 增加篩選主題關鍵字/自訂關鍵字
     let filter = "";
-    if (apiFilter.themes.length || keyword) {
-      const maxResults = 90;
-      if (!apiFilter.themes.length) {
-        filter += `?$filter=contains(Description,'${keyword}') or contains(Name,'${keyword}')`;
-      } else if (!keyword) {
-        filter +=
-          "?$filter=" +
-          apiFilter.themes
-            .map((theme) => {
-              return `contains(Description,'${theme}') or contains(Name,'${theme}')`;
-            })
-            .join(" or ");
-      } else {
-        filter +=
-          "?$filter=" +
-          apiFilter.themes
-            .map((theme) => {
-              return `contains(Description,'${theme}') or contains(Name,'${theme}')`;
-            })
-            .join(" or ");
-        filter += ` and contains(Description,'${keyword}')`;
-      }
-      filter += `&$orderby=UpdateTime&$top=${maxResults}&$format=JSON`;
+
+    const themeFilterString = apiFilter.themes
+      .map((theme) => {
+        return `contains(Description,'${theme}') or contains(Name,'${theme}')`;
+      })
+      .join(" or ");
+
+    const keywordFilterString = `contains(Description,'${keyword}') or contains(Name,'${keyword}')`;
+
+    if (apiFilter.themes.length && keyword) {
+      filter = `?$filter=${themeFilterString} and ${keywordFilterString}`;
     }
+
+    if (!apiFilter.themes.length && keyword) {
+      filter = `?$filter=${keywordFilterString}`;
+    }
+
+    if (!keyword && apiFilter.themes.length) {
+      filter = `?$filter=${themeFilterString}`;
+    }
+
+    // 增加篩選排序筆數
+    const maxResults = 90;
+    if (filter)
+      filter += `&$orderby=UpdateTime&$top=${maxResults}&$format=JSON`;
 
     for (const [key, value] of Object.entries(apis)) {
       apis[key] = value + filter;
     }
+
     console.log(apis);
 
-    const fetchAll = await Promise.allSettled(
-      Object.entries(apis).map(([urlName, url]) => fetchTdxApi(urlName, url))
-    );
-    return fetchAll.map((resolved) => resolved.value);
+    const data = await fetchTdxApi(apis);
+    return data;
   } catch (error) {
     throw error;
   }
