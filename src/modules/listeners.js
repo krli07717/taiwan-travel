@@ -14,8 +14,6 @@ export default function bindListeners(state) {
   });
 
   window.addEventListener("popstate", () => {
-    console.log("history");
-
     const lastId = /.*id=(.*)$/g.exec(location.search);
 
     if (isInvalidQuery() && !lastId) {
@@ -24,7 +22,6 @@ export default function bindListeners(state) {
       return;
     }
 
-    console.log(`last id `, lastId);
     if (lastId) {
       //ITEM_PAGE
       state.setState({ [MODE]: ITEM_PAGE, [QUERY_STRING]: location.search });
@@ -34,7 +31,6 @@ export default function bindListeners(state) {
     const lastPage = /.*&page=(\d*).*/g.exec(location.search);
     if (+lastPage?.[1]) {
       // going through pagination
-      console.log(`back to page: `, +lastPage[1]);
       state.setState({ [CURRENT_PAGE]: +lastPage[1] });
       return;
     }

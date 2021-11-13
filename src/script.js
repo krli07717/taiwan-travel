@@ -19,12 +19,10 @@ function main() {
 
   const onChange = {
     [MODE]: () => {
-      console.log("mode changed to", state.getState(MODE));
       scrollTop();
     },
     [QUERY_STRING]: async () => {
       render.updateLoading();
-      console.log("queryString changed to\n", state.getState(QUERY_STRING));
       if (state.getState(MODE) === ITEM_PAGE) {
         const { id } = parseRouter(state.getState(QUERY_STRING));
         const allData = state
@@ -43,10 +41,6 @@ function main() {
       });
     },
     [FILTERED_DATA]: () => {
-      console.log(
-        "filteredData changed, rendering",
-        state.getState(FILTERED_DATA)
-      );
       if (state.getState(MODE) === HOME_PAGE) {
         render.updateHomepage(state.getState(FILTERED_DATA));
         renewSwiper();
@@ -62,7 +56,6 @@ function main() {
       }
     },
     [CURRENT_PAGE]: () => {
-      console.log("currentPage changed to", state.getState(CURRENT_PAGE));
       render.updateFilteredList({
         data: state.getState(FILTERED_DATA),
         page: state.getState(CURRENT_PAGE),

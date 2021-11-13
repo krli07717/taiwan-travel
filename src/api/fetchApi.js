@@ -64,7 +64,6 @@ export default async function fetchBy(searchParamsObj) {
 
     if (noValidQueries) {
       //首頁
-      console.log("首頁，fetch 4種url");
       const previewCount = 30;
       const urls = {
         熱門景點: `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$orderby:UpdateTime&$top=${previewCount}&$format=JSON`,
@@ -92,8 +91,6 @@ export default async function fetchBy(searchParamsObj) {
         })
         .filter((theme) => theme),
     };
-
-    console.log(`apiFilter\n`, apiFilter);
 
     let baseUrl = "https://ptx.transportdata.tw/MOTC/v2/Tourism/";
     let apis;
@@ -145,8 +142,6 @@ export default async function fetchBy(searchParamsObj) {
     for (const [key, value] of Object.entries(apis)) {
       apis[key] = value + filter;
     }
-
-    console.log(apis);
 
     const data = await fetchTdxApi(apis);
     return data;
