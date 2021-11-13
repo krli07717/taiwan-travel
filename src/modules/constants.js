@@ -1,0 +1,6 @@
+const MODE = {
+  HOME_PAGE: "HOME_PAGE",
+  FILTERED_PAGE: "FILTERED_PAGE",
+  ITEM_PAGE: "ITEM_PAGE",
+};
+export default MODE;
