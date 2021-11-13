@@ -22,23 +22,27 @@ function main() {
       scrollTop();
     },
     [QUERY_STRING]: async () => {
-      render.updateLoading();
-      if (state.getState(MODE) === ITEM_PAGE) {
-        const { id } = parseRouter(state.getState(QUERY_STRING));
-        const allData = state
-          .getState(FILTERED_DATA)
-          .map(({ data }) => data)
-          .flat();
-        const matchItem = allData.find((item) => item.ID === id);
-        if (matchItem) render.updateItempage(matchItem);
-        return;
+      try {
+        render.updateLoading();
+        if (state.getState(MODE) === ITEM_PAGE) {
+          const { id } = parseRouter(state.getState(QUERY_STRING));
+          const allData = state
+            .getState(FILTERED_DATA)
+            .map(({ data }) => data)
+            .flat();
+          const matchItem = allData.find((item) => item.ID === id);
+          if (matchItem) render.updateItempage(matchItem);
+          return;
+        }
+        const searchParams = parseRouter(state.getState(QUERY_STRING));
+        render.updateFilterDropdown(searchParams);
+        const data = await fetchBy(searchParams);
+        state.setState({
+          [FILTERED_DATA]: data,
+        });
+      } catch (error) {
+        throw error;
       }
-      const searchParams = parseRouter(state.getState(QUERY_STRING));
-      render.updateFilterDropdown(searchParams);
-      const data = await fetchBy(searchParams);
-      state.setState({
-        [FILTERED_DATA]: data,
-      });
     },
     [FILTERED_DATA]: () => {
       if (state.getState(MODE) === HOME_PAGE) {
@@ -68,8 +72,7 @@ function main() {
   bindListeners(state);
 }
 
-// remove consolelogs
-// fix滑nav main也動
+// apikey.js
 // Footer 註github原始碼
 
 main();
