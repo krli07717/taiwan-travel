@@ -8,6 +8,13 @@ export default function getFilteredListTemplate(dataObj) {
   const allData = data.map(({ data }) => data).flat();
   const maxPages = Math.ceil(allData.length / RESULT_CARDS_PER_PAGE);
 
+  // handle bad get request error
+  if (allData.some((data) => data.Message !== undefined)) {
+    return `<div class="error" style="height:100%; display: flex; align-items:center; justify-content:center;">
+              <h3 style="font-size: 60px;">Bad Request!</h3>
+            </div>`;
+  }
+
   const renderPage = Math.floor(page) <= maxPages ? Math.floor(page) : 1;
   const renderData = allData.slice(
     RESULT_CARDS_PER_PAGE * (renderPage - 1),
