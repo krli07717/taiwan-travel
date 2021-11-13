@@ -37,6 +37,7 @@ export default function bindListeners(state) {
   });
 
   // main
+  const mainAndFooterWrapper = document.querySelector(".lg-flex-wrapper");
   const main = document.querySelector("main");
 
   main.addEventListener("click", (e) => {
@@ -144,6 +145,7 @@ export default function bindListeners(state) {
       history.pushState({}, "", searchQuery);
       state.setState({ [MODE]: FILTERED_PAGE, [QUERY_STRING]: searchQuery });
       filterForm.classList.remove("hide");
+      mainAndFooterWrapper.classList.remove("hide");
       return;
     }
   });
@@ -152,5 +154,6 @@ export default function bindListeners(state) {
   const navFilter = document.querySelector(".top_nav .filter");
   navFilter.addEventListener("click", () => {
     filterForm.classList.toggle("hide");
+    mainAndFooterWrapper.classList.toggle("hide");
   });
 }
