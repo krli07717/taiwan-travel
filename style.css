@@ -764,7 +764,8 @@ body {
   body {
     display: flex;
   }
-  body .lg-flex-wrapper {
+  body .lg-flex-wrapper,
+body .lg-flex-wrapper.hide {
     display: flex;
     flex-direction: column;
     width: calc(100vw - 354px);
