@@ -11,7 +11,7 @@
 實作主要嘗試使用History API，並讓分頁等畫面渲染的依據儘量來自於內部儲存的state（資料），實作後覺得框架果然還是非常好用的（Ｏ）。
 
 ## 備註
-TDX API需要申請個人api key，否則會有每日請求上限（50次），需要的話可以clone下來並貼上自己的api key。
+TDX API需要申請個人api key，否則會有每日請求上限（50次）。
 
 ## 連結
 https://krli07717.github.io/taiwan-travel/
